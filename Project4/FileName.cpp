@@ -5,10 +5,10 @@
 #include <locale>
 using namespace std;
 
-bool isvowel(char c) {
+bool isgood(char c) {
     c = tolower(c); 
-    return (c == 'a'  c == 'e'  c == 'i'  c == 'o'  c == 'u'  c == 'а'  c == 'е'  c == 'ё'  c == 'и'  c == 'o'  c == 'у'  c == 'ы'  c == 'э'
-        c == 'ю'  c == 'я');
+    return (c == 'a' ||  c == 'e' ||  c == 'i' ||  c == 'o' ||  c == 'u' ||  c == 'а' ||  c == 'е' ||  c == 'ё' ||  c == 'и' ||  c == 'o' ||  c == 'у' ||  c == 'ы' ||  c == 'э' ||
+        c == 'ю' ||  c == 'я');
 }
 
 int main() {
@@ -20,7 +20,7 @@ int main() {
     int maxlen = 0;
     int curlen = 0;
     for (char c : text) {
-        if (iswalpha(c)) {
+        if (isalpha(c)==0 && c != ' ') {
             curlen++;
             maxlen = max(maxlen, curlen);
         }
@@ -28,19 +28,19 @@ int main() {
             curlen = 0;
         }
     }
-    cout << "Максимальная длина: " << maxlen << " букв(ы)" << "\n";
+    cout << "Максимальная длина: " << maxlen << " символа(ов)" << "\n";
 
     int twochars = 0;
     string word;
     for (char c : text) {
-        if (iswalpha(c)) {
+        if (isalpha(c)) {
             word += c;
         }
         else {
             if (word.length() > 1) {
                 bool hastwo = false;
-                for (size_t i = 0; i < word.length() - 1; ++i) {
-                    if (!isvowel(word[i]) && !isvowel(word[i + 1])) {
+                for (int i = 0; i < word.length() - 1; ++i) {
+                    if ((!isgood(word[i]) && !isgood(word[i + 1] )) && (word[i]==word[i+1])) {
                         hastwo = true;
                         break;
                     }
@@ -56,8 +56,8 @@ int main() {
 
     if (word.length() > 1) {
         bool hastwo = false;
-        for (size_t i = 0; i < word.length() - 1; ++i) {
-            if (!isvowel(word[i]) && !isvowel(word[i + 1])) {
+        for (int i = 0; i < word.length() - 1; ++i) {
+            if (!isgood(word[i]) && !isgood(word[i + 1]) && (word[i] == word[i + 1])) {
                 hastwo = true;
                 break;
             }
